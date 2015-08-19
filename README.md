@@ -1,2 +1,6 @@
 # SpecialGraphs.jl
-A specialised graph library for [Julia](https://github.com/JuliaLang/).
+
+[![Build Status](https://travis-ci.org/armanard/SpecialGraphs.jl.svg?branch=master)](https://travis-ci.org/armanard/SpecialGraphs.jl)
+[![Coverage Status](https://coveralls.io/repos/armanard/SpecialGraphs.jl/badge.svg?branch=master&service=github)](https://coveralls.io/github/armanard/SpecialGraphs.jl?branch=master)
+
+A heavily modified fork of [JuliaLang/Graphs.jl](https://github.com/JuliaLang/Graphs.jl). This library has much narrower scope than JuliaLang/Graphs.jl (hence the "special"), which allows certain optimizations to be made.
