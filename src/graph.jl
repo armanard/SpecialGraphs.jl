@@ -119,7 +119,25 @@ function vertices(g::Union{GraphStatic, BareGraphStatic})
     return Vector{UInt32}(1:g.order)
 end
 
-function edges(g::Union{Graph, BareGraph})
+function edges(g::Union{GraphDynamic, BareGraphDynamic})
+    edges = Vector{Tuple{UInt32, UInt32}}(g.size)
+    j = 1
+    l = length(g.vertex_indicator)
+    for i in 1:l
+        if !g.vertex_indicator[i]
+            continue
+        end
+        for t in g.adjacencies[i]
+            if i < t
+                edges[j] = (i, t)
+                j += 1
+            end
+        end
+    end
+    return edges
+end
+
+function edges(g::Union{GraphStatic, BareGraphStatic})
     edges = Vector{Tuple{UInt32, UInt32}}(g.size)
     j = 1
     for i in 1:g.order
@@ -134,7 +152,7 @@ function edges(g::Union{Graph, BareGraph})
 end
 
 function exists(g::Union{GraphDynamic, BareGraphDynamic}, u::UInt32)
-    return 0 < u <= g.order && g.vertex_indicator[u]
+    return g.vertex_indicator[u]
 end
 
 function exists(g::Union{GraphStatic, BareGraphStatic}, u::UInt32)
@@ -198,7 +216,7 @@ end
 
 ## Mutation
 function add_vertex!(g::GraphDynamic)
-    # The vertex is always added at the end.
+    # The vertex is added at the end.
     push!(g.adjacencies, Vector{UInt32}())
     push!(g.vertex_info, Int64(0))
     push!(g.edge_info, Vector{Int64}())

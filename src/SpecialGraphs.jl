@@ -38,7 +38,7 @@ export
     exists, adjacent,
 
     ## Neighbourhood
-    neighbours,
+    neighbours, neighbours_out, neighbours_in,
 
     ## Information
     vertex_info, edge_info, vertex_info!, edge_info!,
