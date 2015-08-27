@@ -109,9 +109,9 @@ function BareDigraphStatic(order::UInt32)
 end
 
 ## Properties
-order(g::Union{Graph, BareGraph}) = g.order
-size(g::Union{Graph, BareGraph}) = g.size
-degree(g::Union{Graph, BareGraph}, u::UInt32) = length(g.adjacencies_out[u])
+order(g::Union{Digraph, BareDigraph}) = g.order
+size(g::Union{Digraph, BareDigraph}) = g.size
+degree(g::Union{Digraph, BareDigraph}, u::UInt32) = length(g.adjacencies_out[u])
 
 ## Access
 function vertices(g::Union{DigraphDynamic, BareDigraphDynamic})
@@ -205,11 +205,11 @@ function adjacent(g::Union{DigraphStatic, BareDigraphStatic}, u::UInt32, v::UInt
     return _binary_search(g.adjacencies_out[u], 1, length(g.adjacencies_out[u]), v) != 0
 end
 
-function neighbours_out(g::Union{Graph, BareGraph}, u::UInt32)
+function neighbours_out(g::Union{Digraph, BareDigraph}, u::UInt32)
     return g.adjacencies_out[u]
 end
 
-function neighbours_in(g::Union{Graph, BareGraph}, u::UInt32)
+function neighbours_in(g::Union{Digraph, BareDigraph}, u::UInt32)
     return g.adjacencies_in[u]
 end
 
