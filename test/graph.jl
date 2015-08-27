@@ -64,7 +64,7 @@ for g in (GraphDynamic(UInt32(9)), BareGraphDynamic(UInt32(9)))
     @test order(g) == 10
     @test size(g) == 7
     @test degree(g, UInt32(1)) == 1
-    @test degree(g, UInt32(2)) == 2
+    @test degree(g, UInt32(2)) == 3
     @test degree(g, UInt32(3)) == 3
     @test degree(g, UInt32(5)) == 2
 
@@ -104,19 +104,19 @@ for g in (GraphDynamic(UInt32(9)), BareGraphDynamic(UInt32(9)))
     remove_edge!(g, UInt32(3), UInt32(2))      # 2 -- 3
     remove_edge!(g, UInt32(8), UInt32(5))      # 5 -- 8
 
-    # Here, order = 8, size = 4, degree(1) = 0, degree(2) = 1, degree(3) = 2, degree(5) = 1
+    # Here, order = 8, size = 4, degree(1) = 0, degree(2) = 0, degree(3) = 2, degree(5) = 1
     # length(vertices) = 8, length(edges) = 4, sort(neighbours(3)) = [6, 9], neighbours(6) = [3]
     # exists(3) = true, exists(4) = false, exists(6) = true, exists(7) = false
     # adjacent(1, 2) = false, adjacent(3, 2) = false, adjacent(8, 5) = false, adjacent(3, 6) = true,
     # adjacent(3, 9) = true, adjacent(5, 6) = false, adjacent(9, 2) = false
     @test order(g) == 8
-    @test size(g) == 4
+    @test size(g) == 2
     @test degree(g, UInt32(1)) == 0
-    @test degree(g, UInt32(2)) == 1
+    @test degree(g, UInt32(2)) == 0
     @test degree(g, UInt32(3)) == 2
 
     @test length(vertices(g)) == 8
-    @test length(edges(g)) == 4
+    @test length(edges(g)) == 2
 
     @test sort(neighbours(g, UInt32(3))) == [6, 9]
     @test neighbours(g, UInt32(6)) == [3]
@@ -141,7 +141,7 @@ for g in (GraphDynamic(UInt32(9)), BareGraphDynamic(UInt32(9)))
         @test vertex_info(g, UInt32(5)) == Int64(7)
         # @test edge_info(g, UInt32(2), UInt32(1)) == Int64(11) deleted
         # @test edge_info(g, UInt32(3), UInt32(2)) == Int64(17) deleted
-        @test edge_info(g, UInt32(2), UInt32(4)) == Int64(13)
+        # @test edge_info(g, UInt32(2), UInt32(4)) == Int64(13) deleted
         @test edge_info(g, UInt32(9), UInt32(3)) == Int64(7)
     end
 
@@ -163,13 +163,13 @@ for g in (GraphDynamic(UInt32(9)), BareGraphDynamic(UInt32(9)))
     # adjacent(1, 2) = false, adjacent(3, 2) = true, adjacent(8, 5) = false, adjacent(3, 6) = true,
     # adjacent(3, 9) = true, adjacent(5, 6) = false, adjacent(9, 2) = true
     @test order(g) == 9
-    @test size(g) == 6
+    @test size(g) == 4
     @test degree(g, UInt32(1)) == 0
-    @test degree(g, UInt32(2)) == 3
+    @test degree(g, UInt32(2)) == 2
     @test degree(g, UInt32(3)) == 3
 
     @test length(vertices(g)) == 9
-    @test length(edges(g)) == 6
+    @test length(edges(g)) == 4
 
     @test sort(neighbours(g, UInt32(3))) == [2, 6, 9]
     @test neighbours(g, UInt32(6)) == [3]
@@ -194,7 +194,7 @@ for g in (GraphDynamic(UInt32(9)), BareGraphDynamic(UInt32(9)))
         @test vertex_info(g, UInt32(5)) == Int64(7)
         # @test edge_info(g, UInt32(2), UInt32(1)) == Int64(11) deleted
         @test edge_info(g, UInt32(3), UInt32(2)) == Int64(3)  # added again
-        @test edge_info(g, UInt32(2), UInt32(4)) == Int64(13)
+        # @test edge_info(g, UInt32(2), UInt32(4)) == Int64(13) deleted
         @test edge_info(g, UInt32(9), UInt32(3)) == Int64(7)
         @test edge_info(g, UInt32(9), UInt32(2)) == Int64(13) # new
     end
