@@ -111,7 +111,9 @@ end
 ## Properties
 order(g::Union{Digraph, BareDigraph}) = g.order
 size(g::Union{Digraph, BareDigraph}) = g.size
-degree(g::Union{Digraph, BareDigraph}, u::UInt32) = length(g.adjacencies_out[u])
+degree(g::Union{Digraph, BareDigraph}, u::UInt32) = degree_out(g, u) + degree_in(g, u)
+degree_out(g::Union{Digraph, BareDigraph}, u::UInt32) = length(g.adjacencies_out[u])
+degree_in(g::Union{Digraph, BareDigraph}, u::UInt32) = length(g.adjacencies_in[u])
 
 ## Access
 function vertices(g::Union{DigraphDynamic, BareDigraphDynamic})
@@ -245,7 +247,7 @@ function add_vertex!(g::DigraphDynamic, u::UInt32)
 end
 
 function add_vertex!(g::BareDigraphDynamic)
-    # The vertex is always added at the end.
+    # The vertex is added at the end.
     push!(g.adjacencies_out, Vector{UInt32}())
     push!(g.adjacencies_in, Vector{UInt32}())
     push!(g.vertex_indicator, true)
